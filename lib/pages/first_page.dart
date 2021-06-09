@@ -17,6 +17,23 @@ class _HomeState extends State<Home> {
 
   int _selectedIndex = 0;
 
+  late PageController _pageController;
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    _pageController = PageController(
+        initialPage: 0
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,10 +43,16 @@ class _HomeState extends State<Home> {
         elevation: 0,
         backgroundColor: Color.fromRGBO(26, 29, 55, 1),
         actions: [
-          Icon(Icons.search_rounded),
+          IconButton(
+            icon: Icon(Icons.search_rounded),
+            onPressed: () {},
+          ),
           SizedBox(width: 20,),
         ],
-        leading: Icon(Icons.menu_outlined),
+        leading: IconButton(
+          icon: Icon(Icons.menu_outlined),
+          onPressed: () {},
+        ),
       ),
       backgroundColor:Colors.yellow,
       body: Container(
@@ -103,83 +126,186 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            SizedBox(height: 25,),
+            SizedBox(height: 30,),
             // #Main
             Container(
-              margin: EdgeInsets.only(left: 30,right: 30),
-              height: 450,
+              height: 470,
               width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
-                color: Colors.white,
-              ),
-              child: Column(
+              child: PageView(
+                scrollDirection: Axis.horizontal,
+                controller: _pageController,
+                onPageChanged: (int page) {
+                  setState(() {
+                    currentIndex = page;
+                  });
+                },
                 children: [
-                  SizedBox(height: 20,),
-                  Text('New Air Force',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 30),),
-                  SizedBox(height: 20,),
-                  // #image
                   Container(
-                    margin: EdgeInsets.only(left: 20,right: 20),
-                    height: 250,
+                    margin: EdgeInsets.only(left: 30,right: 30),
+                    height: 450,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/shoes.jpg'),
-                      ),
+                      borderRadius: BorderRadius.circular(40),
+                      color: Colors.white,
                     ),
-                  ),
-                  SizedBox(height: 50,),
-
-                  // #price // #buying
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text( "\$80",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 22),),
-                      SizedBox(width: 120,),
-                      Container(
-                        height: 40,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color: Colors.yellow,
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, Buying.id);
-                          },
-                          child: Center(
-                            child: Text('Buy Now',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 20,),
+                        Text('New Air Force',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 30),),
+                        SizedBox(height: 20,),
+                        // #image
+                        Container(
+                          margin: EdgeInsets.only(left: 20,right: 20),
+                          height: 250,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('assets/images/shoes.jpg'),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        SizedBox(height: 50,),
+
+                        // #price // #buying
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text( "\$80",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 22),),
+                            SizedBox(width: 120,),
+                            Container(
+                              height: 40,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: Colors.yellow,
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, Buying.id);
+                                },
+                                child: Center(
+                                  child: Text('Buy Now',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 30,right: 30),
+                    height: 450,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 20,),
+                        Text('New Air Force',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 30),),
+                        SizedBox(height: 20,),
+                        // #image
+                        Container(
+                          margin: EdgeInsets.only(left: 20,right: 20),
+                          height: 250,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('assets/images/shoes.jpg'),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 50,),
+
+                        // #price // #buying
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text( "\$80",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 22),),
+                            SizedBox(width: 120,),
+                            Container(
+                              height: 40,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: Colors.yellow,
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, Buying.id);
+                                },
+                                child: Center(
+                                  child: Text('Buy Now',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 30,right: 30),
+                    height: 450,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 20,),
+                        Text('New Air Force',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 30),),
+                        SizedBox(height: 20,),
+                        // #image
+                        Container(
+                          margin: EdgeInsets.only(left: 20,right: 20),
+                          height: 250,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('assets/images/shoes.jpg'),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 50,),
+
+                        // #price // #buying
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text( "\$80",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 22),),
+                            SizedBox(width: 120,),
+                            Container(
+                              height: 40,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: Colors.yellow,
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, Buying.id);
+                                },
+                                child: Center(
+                                  child: Text('Buy Now',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
+            SizedBox(height: 30,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: 60,),
-                Container(
-                  height: 5,
-                  width: 18,
-                  color: Colors.grey[600],
-                ),
-                SizedBox(width: 10,),
-                Container(
-                  height: 5,
-                  width: 18,
-                  color: Colors.white,
-                ),
-                SizedBox(width: 10,),
-                Container(
-                  height: 5,
-                  width: 18,
-                  color: Colors.grey[600],
-                ),
-              ],
+              children: _buildIndicator(),
             ),
           ],
         ),
@@ -215,4 +341,31 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+  Widget _indicator(bool isActive) {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 300),
+      height: 6,
+      width: isActive ? 30:6,
+      margin: EdgeInsets.only(right: 5),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5),
+      ),
+    );
+  }
+
+  List<Widget> _buildIndicator() {
+    List<Widget> indicators = [];
+
+    for(int i= 0; i<3; i++){
+      if(currentIndex == i) {
+        indicators.add(_indicator(true));
+      }else{
+        indicators.add(_indicator(false));
+      }
+    }
+    return indicators;
+  }
+
 }
